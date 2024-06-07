@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,4 +27,9 @@ Route::get('permissions/{permissionId}/delete', [PermissionController::class, 'd
 // Role
 Route::resource('roles',RoleController::class);
 Route::get('roles/{roleId}/delete', [RoleController::class, 'destroy']);
+
+Route::get('roles/{roleId}/AddPermission', [RoleController::class, 'AddPermission']);
+
+Route::put('roles/{roleId}/AddPermission', [RoleController::class, 'givepermissiontorole']);
+
 
