@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +32,7 @@ Route::get('roles/{roleId}/AddPermission', [RoleController::class, 'AddPermissio
 
 Route::put('roles/{roleId}/AddPermission', [RoleController::class, 'givepermissiontorole']);
 
+// Users
+Route::resource('users',UserController::class);
+Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
 
