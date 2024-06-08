@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
+    public function __construct(){
+        $this->middleware('permission:update user',['only' => ['edit','update']]);
+        $this->middleware('permission:delete user',['only' => ['destroy']]);
+    }
     public function index()
     {
         $users=User::get();

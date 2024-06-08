@@ -7,6 +7,10 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct(){
+        $this->middleware('permission:update permission',['only' => ['edit','update']]);
+        $this->middleware('permission:delete permission',['only' => ['destroy']]);
+    }
     public function index()
     {
         $permissions=Permission::get();

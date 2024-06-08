@@ -1,4 +1,6 @@
 
+@include('layouts.app')
+
 @extends('layout.layout')
 
 
@@ -38,8 +40,10 @@
                                         @endforeach
                                         @endif
                                     </td>
+                                    @role('super admin')
                                     <td><a href="{{ url('users/'.$user->id.'/edit') }}" class="btn btn-primary btn-sm">Edit</a></td>
                                     <td><a href="{{ url('users/'.$user->id.'/delete') }}" class="btn btn-danger btn-sm">Delete</a></td>
+                                    @endrole
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -1,5 +1,5 @@
 
-@extends('layout.layout')
+@include('layouts.app')
 
 
     @include('role-permission.nav-link')
@@ -28,9 +28,12 @@
                                 <tr>
                                     <td>{{ $role->id }}</td>
                                     <td>{{ $role->name }}</td>
-                                    <td><a href="{{ url('roles/'.$role->id.'/AddPermission') }}" class="btn btn-primary btn-sm">Add Permission</a></td>
+
+                                    <td><a href="{{ url('roles/'.$role->id.'/AddPermission') }}" class="btn btn-warning btn-sm">Add Permission</a></td>
+                                    @role('super admin')
                                     <td><a href="{{ url('roles/'.$role->id.'/edit') }}" class="btn btn-primary btn-sm">Edit</a></td>
                                     <td><a href="{{ url('roles/'.$role->id.'/delete') }}" class="btn btn-danger btn-sm">Delete</a></td>
+                                    @endrole
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -41,5 +44,3 @@
             </div>
         </div>
     </div>
-    
-
