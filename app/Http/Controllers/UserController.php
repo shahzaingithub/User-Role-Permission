@@ -6,18 +6,29 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Laravel\Scout\Builder;
 class UserController extends Controller
 {
     public function __construct(){
         $this->middleware('permission:update user',['only' => ['edit','update']]);
         $this->middleware('permission:delete user',['only' => ['destroy']]);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $users=User::get();
-        return view('role-permission.user.index',compact('users'));
-    }
+        $search = $request->input('search');
+        $users = null;
 
+        if ($search) {
+            // Use Scout for searching
+            $users = User::search($search)->get();
+        } else {
+            $users = User::all();
+        }
+
+        return view('role-permission.user.index', compact('users'));
+    }
+    
+    
     public function create()
     {
         $roles=Role::pluck('name','name')->all();
