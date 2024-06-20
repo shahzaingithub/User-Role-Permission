@@ -3,6 +3,16 @@
 
 @extends('layout.layout')
 
+<!-- Search -->
+<div class="container mb-4">
+     <form class="form-inline" method="GET" action="{{ route('permissions.index') }}">
+        <input class="form-control mr-sm-4 mb-2" type="search" placeholder="Search"
+               aria-label="Search" value="{{ request('search') }}" name="search">
+        <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+<!-- Search -->
+
 @include('role-permission.nav-link')
 
 

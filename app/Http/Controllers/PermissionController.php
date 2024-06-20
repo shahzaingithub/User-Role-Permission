@@ -4,16 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
-
+use App\Models\Permission as SearchPermission;
 class PermissionController extends Controller
 {
     public function __construct(){
         $this->middleware('permission:update permission',['only' => ['edit','update']]);
         $this->middleware('permission:delete permission',['only' => ['destroy']]);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $permissions=Permission::get();
+        $search = $request->input('search');
+        $permissions = null;
+
+        if ($search) {
+            // Use Scout for searching
+            $permissions = SearchPermission::search($search)->get();
+            // dd($permissions);
+        } else {
+            $permissions = SearchPermission::all();
+        }   
+        // $permissions=Permission::get();
         return view('role-permission.permission.index',compact('permissions'));
     }
     public function create()

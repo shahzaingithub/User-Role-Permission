@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Models\Role as SearchRole;
 use Spatie\Permission\Models\Permission; 
 use Illuminate\Support\Facades\DB;
 
@@ -13,9 +14,16 @@ class RoleController extends Controller
         $this->middleware('permission:update role',['only' => ['edit','update']]);
         $this->middleware('permission:delete role',['only' => ['destroy']]);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $roles=Role::get();
+        $search = $request->input('search');
+        $roles = null;
+        if($search){
+            $roles = SearchRole::search($search)->get();
+        }else{
+            $roles = SearchRole::all();
+        }
+        // $roles=Role::get();
         return view('role-permission.role.index',compact('roles'));
     }
     public function create()
